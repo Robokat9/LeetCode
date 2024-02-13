@@ -7,11 +7,21 @@ class HelloWorld
 
     static void Main()
     {
-
-        int[] arr = {1, 3};
-        int[] arr1 = {2};
+        int maj = 0;
+        string res = "";
+        int[] arr = { 1, 3 };
+        int[] arr1 = { 2 };
         int[] height = { 1, 8, 6, 2, 5, 4, 8, 3, 7 };
-        int max = MaxArea(height);
+        int[] nums = [2, 2, 1, 1, 1, 2, 2,3,3,3,3,3,3];
+        //int max = MaxArea(height);
+        string str1 = "ABC";
+        string str2 = "ABCABC";
+        string[] words = ["ada", "car", "ada", "racecar", "cool"];
+       
+        maj = MajorityElement(nums);
+
+        //res = FirstPalindrome(words);
+        //res = GcdOfStrings(str1, str2);
         //int[] numsrr = FindErrorNums(arr);
         //string str = MergeAlternately("abc34567", "qwerr");
         //double m = FindMedianSortedArrays(arr, arr1);
@@ -104,10 +114,10 @@ class HelloWorld
         int k;
         res = nums.Distinct().ToArray();
         k = nums.Length - res.Length;
-        
+
         for (int i = 0; i < k; i++)
         {
-             nums[i] = res[i];
+            nums[i] = res[i];
             Console.WriteLine(nums[i]);
         }
         return res.Length;
@@ -116,35 +126,123 @@ class HelloWorld
     public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
         double res = 0.0;
-        int[] mass =  nums1.Concat(nums2).ToArray();
+        int[] mass = nums1.Concat(nums2).ToArray();
         Array.Sort(mass);
         int m = mass.Length / 2;
         if ((m != 0) && (mass.Length % 2 == 0))
         {
-            res = (mass[m-1] + mass[m]) / 2.0;
+            res = (mass[m - 1] + mass[m]) / 2.0;
         }
-        if(mass.Length % 2 != 0)
+        if (mass.Length % 2 != 0)
         {
-            res =mass[m];
+            res = mass[m];
         }
         return res;
     }
 
-    public static int MaxArea(int[] height)
+    public static int MaxArea(int[] nums)
     {
         int max = 0;
-        int len = height.Length;
-        int n1,n2;
-        int[,] res = new int[len,len];
-       
-        for (int j = 0; j < len; j++)
+        int len = nums.Length;
+        int n1, n2;
+        int[,] res = new int[len, len];
+
+
+        for (int i = 0; i < len; i++)
         {
-            for (int i = 0; i < len; i++)
+            n1 = nums[i];
+            for (int j = 0; j < n1; j++)
             {
-                res[i,j] = height[i] *j;
+
             }
         }
-        
+
+
         return max;
+    }
+
+    public static string GcdOfStrings(string word1, string word2)
+    {
+        string res = "";
+        int len1 = word1.Length;
+        int len2 = word2.Length;
+        for (int i = 0; i < Math.Max(len1, len2); i++)
+        {
+
+        }
+
+
+
+
+
+        return res;
+    }
+
+    public static string FirstPalindrome(string[] words)
+    {
+        string res = "";
+        int count = words.Count();
+        for (int i = 0; i < count; i++)
+        {
+            res = "";
+            Console.WriteLine(words[i]);
+            char[] charArray1 = words[i].ToCharArray();
+            char[] charArray = words[i].ToCharArray();
+            Array.Reverse(charArray);
+            Console.WriteLine(charArray);
+            int dd = words[i].Length / 2;
+            int dm = words[i].Length % 2;
+            for (int j = 0; j < dd; j++)
+            {
+                if (charArray1[j] == charArray[j])
+                {
+                    res += charArray1[j];
+                }
+
+            }
+            if (res.Length == dd)
+            {
+
+                res = new string(charArray);
+                Console.WriteLine(res);
+                return res;
+
+            }
+            else
+            {
+                res = "";
+            }
+
+
+
+        }
+        Console.WriteLine(res);
+        return res;
+    }
+
+    public static int MajorityElement(int[] nums)
+    {
+        int res = 0;
+        int r;
+        int count = 0;
+        var dict = new Dictionary<int, int>();
+        for (int i = 0; i < nums.Length; i++)
+        {
+            for (int j = i; j < nums.Length; j++)
+            {
+                if (nums[i] != nums[j])
+                {
+                    dict.Add(nums[i], j - i);
+                    i = j - 1;
+                    break;
+                }
+                if (j == nums.Length - 1)
+                {
+                    dict.Add(nums[i], j - i + 1);
+                    i = j;
+                }
+            }
+        }
+        return dict.Count;
     }
 }
